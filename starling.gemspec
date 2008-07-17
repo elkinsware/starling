@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
 	s.files = ["README.rdoc", "LICENSE", "CHANGELOG", "Rakefile", "lib/starling/handler.rb", "lib/starling/persistent_queue.rb", "lib/starling/queue_collection.rb", "lib/starling/server_runner.rb", "lib/starling/server.rb", "lib/starling.rb", "etc/starling.redhat", "etc/starling.ubuntu"]
 	s.test_files = ["test/test_starling_server.rb"]
 
+
 	s.has_rdoc = true
 	s.rdoc_options = ["--quiet", "--title", "starling documentation", "--opname", "index.html", "--line-numbers", "--main", "README.rdoc", "--inline-source"]
 	s.extra_rdoc_files = ["README.rdoc", "CHANGELOG", "LICENSE"]
