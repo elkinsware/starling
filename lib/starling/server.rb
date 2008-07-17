@@ -2,7 +2,8 @@ require 'socket'
 require 'logger'
 require 'rubygems'
 require 'eventmachine'
-require 'analyzer_tools/syslog_logger'
+
+#require 'analyzer_tools/syslog_logger'
 
 here = File.dirname(__FILE__)
 
@@ -73,7 +74,17 @@ module StarlingServer
                  when Logger; @opts[:logger]
                  else; Logger.new(STDERR)
                  end
-      @@logger = SyslogLogger.new(@opts[:syslog_channel]) if @opts[:syslog_channel]
+
+      begin
+        require 'analyzer_tools/syslog_logger'
+        @@logger = SyslogLogger.new(@opts[:syslog_channel]) if @opts[:syslog_channel]
+      rescue LoadError
+        @@logger = case @opts[:logger]
+		when IO, String; Logger.new(@opts[:logger])
+		when Logger; @opts[:logger]
+		else; Logger.new(STDERR)
+		end        
+      end
 
       @opts[:queue] = QueueCollection.new(@opts[:path])
       @@logger.level = @opts[:log_level] || Logger::ERROR
